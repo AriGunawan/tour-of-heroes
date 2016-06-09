@@ -1,0 +1,9 @@
+# node modules
+/node_modules
+
+# typings
+/typings
+
+# generated file
+/app/*.js
+/app/*.js.map
