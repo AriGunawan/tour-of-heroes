@@ -1,8 +1,10 @@
 import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 import { RouteParams } from '@angular/router-deprecated';
+import { Router } from '@angular/router-deprecated';
 
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
+import { POWERS } from './power'
 
 @Component({
     selector: 'my-hero-detail',
@@ -14,10 +16,12 @@ export class HeroDetailComponent implements OnInit {
     @Output() close = new EventEmitter();
     navigated: boolean;
     error: any;
+    powers = POWERS;
 
     constructor(
         private heroService: HeroService,
-        private routeParams: RouteParams
+        private routeParams: RouteParams,
+        private router: Router
     ) {       
     }
 
@@ -26,7 +30,7 @@ export class HeroDetailComponent implements OnInit {
             let id = +this.routeParams.get('id');
             this.navigated = true;
             this.heroService.getHero(id)
-                .then(hero => this.hero = hero);            
+                .then(hero => this.hero = hero);
         } else {
             this.navigated = false;
             this.hero = new Hero();
@@ -35,14 +39,17 @@ export class HeroDetailComponent implements OnInit {
 
     goBack(savedHero: Hero = null) {
         this.close.emit(savedHero);
-        if (this.navigated) { window.history.back() };
+        if (this.navigated) {
+            this.navigated = false;
+            window.history.back();
+        };
     }
 
-    save() {
+    onSubmit() {
         this.heroService
             .save(this.hero)
             .then(hero => {
-                this.hero = hero; // saved hero, w/ id if new
+                this.hero = new Hero(); // saved hero, w/ id if new
                 this.goBack(hero);
             })
             .catch(error => this.error = error); // TODO: Display error message

@@ -1,16 +1,16 @@
 export class InMemoryDataService {
     createDb() {
         let heroes = [
-            { "id": 11, "name": "Batman"},
-            { "id": 12, "name": "Superman"},
-            { "id": 13, "name": "Deadpool"},
-            { "id": 14, "name": "Ironman"},
-            { "id": 15, "name": "Flash"},
-            { "id": 16, "name": "Spiderman"},
-            { "id": 17, "name": "Thor"},
-            { "id": 18, "name": "Hawkeye"},
-            { "id": 19, "name": "Hulk"},
-            { "id": 20, "name": "Quicksilver"}
+            { "id": 11, "name": "Batman", "power": "Fighter"},
+            { "id": 12, "name": "Superman", "power": "Fighter"},
+            { "id": 13, "name": "Deadpool", "power": "Fighter"},
+            { "id": 14, "name": "Ironman", "power": "Fighter"},
+            { "id": 15, "name": "Flash", "power": "Fighter"},
+            { "id": 16, "name": "Spiderman", "power": "Fighter"},
+            { "id": 17, "name": "Thor", "power": "Fighter"},
+            { "id": 18, "name": "Hawkeye", "power": "Fighter"},
+            { "id": 19, "name": "Hulk", "power": "Fighter"},
+            { "id": 20, "name": "Quicksilver", "power": "Fighter"}
         ];
         return {heroes};
     }
