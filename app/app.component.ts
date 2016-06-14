@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
+import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
-import { HeroesComponent } from './heroes.component';
-import { DashboardComponent } from './dashboard.component';
-import { HeroDetailComponent } from './hero-detail.component';
-
-import { HeroService } from './hero.service';
-import { RouteConfig, ROUTER_PROVIDERS, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { DashboardComponent } from './heroes/dashboard/dashboard.component';
+import { HeroDetailComponent } from './heroes/hero-detail/hero-detail.component';
+import { HeroesComponent } from './heroes/hero/heroes.component';
+import { HeroService } from './heroes/shared/hero.service';
 
 @Component({
     selector: 'my-app',

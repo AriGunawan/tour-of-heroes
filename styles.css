@@ -55,3 +55,16 @@ button.delete-button{
 * { 
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
+
+/* Toaster */
+#toast-container {
+  right: 28px;
+  top: 185px;
+  position: absolute;
+}
+
+@media (min-width: 768px) {
+  #toast-container {
+    top: 90px;
+  }
+}

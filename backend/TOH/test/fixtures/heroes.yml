@@ -3,9 +3,9 @@
 one:
   name: MyString
   alter_ego: MyString
-  power: 
+  power_id: 
 
 two:
   name: MyString
   alter_ego: MyString
-  power: 
+  power_id: 

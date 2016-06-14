@@ -5,8 +5,10 @@
 /typings
 
 # generated file
-/app/*.js
-/app/*.js.map
+/main.js
+/main.js.map
+/app/**/*.js
+/app/**/*.js.map
 
 # "keep file"
 **/.keep
