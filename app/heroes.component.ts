@@ -3,11 +3,7 @@ import { Router } from '@angular/router-deprecated';
 
 import { HeroDetailComponent } from './hero-detail.component';
 import { HeroService } from './hero.service';
-
-export class Hero {
-  id: number;
-  name: string;
-}
+import { Hero } from './hero';
 
 @Component({
   selector: 'my-heroes',

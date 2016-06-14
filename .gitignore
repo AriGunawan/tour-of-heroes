@@ -7,3 +7,12 @@
 # generated file
 /app/*.js
 /app/*.js.map
+
+# "keep file"
+**/.keep
+
+# npm debug log
+/npm-debug.log
+
+# bin files
+/backend/TOH/bin/*

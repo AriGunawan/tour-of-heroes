@@ -1,9 +1,9 @@
 export interface Hero {
-    power?: string;
-    alterEgo?: string;
+    alter_ego?: string;
 }
 
 export class Hero {
     id: number;
     name: string;
+    power_id: number;
 }

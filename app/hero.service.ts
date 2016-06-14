@@ -2,27 +2,43 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import { HEROES } from './mock-heroes';
-import { Hero } from './Hero';
+import { Hero } from './hero';
 
 @Injectable()
 export class HeroService {
-    private heroesUrl = 'app/heroes'; // URL to web api
+    private heroesBaseUrl = 'http://localhost:3002/api/v1/heroes'; // URL to web api
 
     constructor(
         private http: Http
     ){}
 
     getHeroes(): Promise<Hero[]> {
-        return this.http.get(this.heroesUrl)
+        let url = `${this.heroesBaseUrl}/all.json`;
+        return this.http.get(url)
                    .toPromise()
-                   .then(response => response.json().data)
+                   .then(response => response.json().heroes)
                    .catch(this.handleError);
     }
 
     getHero(id: number) {
-        return this.getHeroes()
-            .then(heroes => heroes.filter(hero => hero.id === id)[0]);
+        let url = `${this.heroesBaseUrl}/${id}.json`;
+        return this.http.get(url)
+                   .toPromise()
+                   .then(response => response.json().hero)
+                   .catch(this.handleError);
+    }
+
+    // Get last hero
+    getLast(qty:number) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        let url = `${this.heroesBaseUrl}/last/${qty}.json`;
+        return this.http
+                   .post(url, '', {headers: headers})
+                   .toPromise()
+                   .then(response => response.json().heroes)
+                   .catch(this.handleError);
     }
 
     private handleError(error: any) {
@@ -35,11 +51,12 @@ export class HeroService {
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
-
+        
+        let url = `${this.heroesBaseUrl}.json`;
         return this.http
-                   .post(this.heroesUrl, JSON.stringify(hero), {headers: headers})
+                   .post(url, JSON.stringify(hero), {headers: headers})
                    .toPromise()
-                   .then(res => res.json().data)
+                   .then(response => response.json().hero)
                    .catch(this.handleError);
     }
 
@@ -48,7 +65,7 @@ export class HeroService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        let url = `${this.heroesUrl}/${hero.id}`;
+        let url = `${this.heroesBaseUrl}/${hero.id}.json`;
 
         return this.http
                    .put(url, JSON.stringify(hero), {headers: headers})
@@ -62,7 +79,7 @@ export class HeroService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        let url = `${this.heroesUrl}/${hero.id}`;
+        let url = `${this.heroesBaseUrl}/${hero.id}`;
 
         return this.http
                    .delete(url, headers)

@@ -17,14 +17,14 @@
                 </div>
                 <div class="form-group">
                     <label for="alterEgo">Alter Ego</label>
-                    <input type="text" class="form-control" [(ngModel)]="hero.alterEgo"
-                        ngControl="alterEgo">
+                    <input type="text" class="form-control" [(ngModel)]="hero.alter_ego"
+                        ngControl="alter_ego">
                 </div>
                 <div class="form-group">
                     <label for="power">Hero Power</label>
-                    <select name="" id="" class="form-control" [(ngModel)]="hero.power" 
+                    <select name="" id="" class="form-control" [(ngModel)]="hero.power_id" 
                         ngControl="power" #power="ngForm" required>
-                        <option value="" *ngFor="let p of powers" [value]="p">{{p}}</option>
+                        <option value="" *ngFor="let p of powers" [value]="p.id">{{p.name}}</option>
                     </select>
                     <div [hidden]="power.valid || power.pristine" class="alert alert-danger">
                         Power is required

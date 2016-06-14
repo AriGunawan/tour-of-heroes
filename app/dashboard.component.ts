@@ -11,14 +11,15 @@ import { HeroService } from './hero.service';
 })
 export class DashboardComponent implements OnInit {
     heroes: Hero[] = [];
+    lastQty: number = 4
 
     constructor(
         private heroService: HeroService,
         private router: Router) { }
     
     ngOnInit() {
-        this.heroService.getHeroes()
-            .then(heroes => this.heroes = heroes.slice(0, 4));
+        this.heroService.getLast(this.lastQty)
+            .then(heroes => this.heroes = heroes);
     }
 
     gotoDetail(hero: Hero){
