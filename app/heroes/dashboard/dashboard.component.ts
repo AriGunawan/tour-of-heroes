@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router-deprecated';
 
-import { Hero, HeroService } from '../shared/index';
+import { Hero, HeroService, HighlightDirective } from '../shared/index';
 
 @Component({
     selector: 'toh-dashboard',
     templateUrl: 'app/heroes/dashboard/dashboard.component.html',
-    styleUrls: ['app/heroes/dashboard/dashboard.component.css']
+    styleUrls: ['app/heroes/dashboard/dashboard.component.css'],
+    directives: [HighlightDirective]
 })
 export class DashboardComponent implements OnInit {
     // public properties
