@@ -2,23 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router-deprecated';
 import { ToasterContainerComponent, ToasterService } from 'angular2-toaster/angular2-toaster';
 
-import { Hero } from '../shared/hero';
-import { HeroDetailComponent } from '../hero-detail/hero-detail.component';
-import { HeroService } from '../shared/hero.service';
+import { Hero, HeroService } from '../shared/index';
+import { HeroDetailComponent } from '../hero-detail/index';
 
 @Component({
-  selector: 'my-heroes',
+  selector: 'toh-heroes',
   templateUrl: 'app/heroes/hero/heroes.component.html',
   styleUrls: ['app/heroes/hero/heroes.component.css'],
   directives: [HeroDetailComponent, ToasterContainerComponent],
   providers: [ToasterService]
 })
 export class HeroesComponent implements OnInit {
+  // public properties
   heroes = [];
   selectedHero: Hero;
   addingHero: boolean;
   error: any;
 
+  // public methods
   constructor(
     private heroService: HeroService,
     private router: Router,

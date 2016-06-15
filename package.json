@@ -1,5 +1,5 @@
 {
-  "name": "angular2-quickstart",
+  "name": "angular2-tour-of-heroes",
   "version": "1.0.0",
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
@@ -7,7 +7,8 @@
     "postinstall": "typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "typings": "typings"
+    "typings": "typings",
+    "tslint:all": "tslint main.ts app/**/*.ts || true"
   },
   "license": "ISC",
   "dependencies": {
@@ -30,8 +31,10 @@
     "zone.js": "^0.6.12"
   },
   "devDependencies": {
+    "codelyzer": "0.0.23",
     "concurrently": "^2.0.0",
     "lite-server": "^2.2.0",
+    "tslint": "^3.11.0",
     "typescript": "^1.8.10",
     "typings": "^1.0.4"
   }

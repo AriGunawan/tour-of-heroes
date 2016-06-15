@@ -1,30 +1,14 @@
 import { Component } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
-import { DashboardComponent } from './heroes/dashboard/dashboard.component';
-import { HeroDetailComponent } from './heroes/hero-detail/hero-detail.component';
-import { HeroesComponent } from './heroes/hero/heroes.component';
-import { HeroService } from './heroes/shared/hero.service';
+import { DashboardComponent } from './heroes/dashboard/index';
+import { HeroDetailComponent } from './heroes/hero-detail/index';
+import { HeroesComponent } from './heroes/hero/index';
+import { HeroService } from './heroes/shared/index';
 
 @Component({
-    selector: 'my-app',
-    template: `
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">{{title}}</a>
-                </div>
-
-                <div>
-                    <ul class="nav navbar-nav">
-                        <li><a [routerLink]="['Dashboard']">Dashboard</a></li>
-                        <li><a [routerLink]="['Heroes']">Heroes</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
-        <router-outlet></router-outlet>
-    `,
+    selector: 'toh-app',
+    templateUrl: 'app/app.component.html',
     directives: [ROUTER_DIRECTIVES],
     providers: [HeroService, ROUTER_PROVIDERS],
     styleUrls: ['app/app.component.css']
@@ -47,6 +31,7 @@ import { HeroService } from './heroes/shared/hero.service';
         component: HeroDetailComponent
     }
 ])
-export class AppComponent { 
+export class AppComponent {
+    // public properties
     title = 'Tour of Heroes';
 }
