@@ -12,3 +12,15 @@ label {
 .ng-invalid {
     border-left: 5px solid #a94442;
 }
+
+.hero-pict {
+    width: 100%
+}
+
+.btn-left {
+    margin-right: 10px;
+}
+
+.title {
+    margin-left: 15px;
+}

@@ -31,12 +31,9 @@ export class HeroService {
 
     // Get last hero
     getLast(qty:number) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
         let url = `${heroesBaseUrl}/last/${qty}.json`;
         return this.http
-                   .post(url, '', {headers: headers})
+                   .get(url)
                    .toPromise()
                    .then(response => response.json().heroes)
                    .catch(this.handleError);

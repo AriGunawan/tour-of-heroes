@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       resources :heroes, only: [:all, :show, :create, :update, :destroy, :last] do
         collection do
           get 'all'
-          post 'last/:qty', to: 'heroes#last'
+          get 'last/:qty', to: 'heroes#last'
         end
       end
     end

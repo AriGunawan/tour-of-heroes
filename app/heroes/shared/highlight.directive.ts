@@ -1,11 +1,7 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, HostListener } from '@angular/core';
 
 @Directive({
-    selector: '[tohHighlight]',
-    host: {
-        '(mouseenter)': 'onMouseEnter()',
-        '(mouseleave)': 'onMouseLeave()'
-    }
+    selector: '[tohHighlight]'
 })
 export class HighlightDirective {
     private defaultColor = '#607d8b';
@@ -15,10 +11,10 @@ export class HighlightDirective {
         this.el = el.nativeElement;
     }
 
-    @Input('tohHighlight') highlightColor: string;
+    @Input() tohHighlight: string;
 
-    onMouseEnter() { this.highlight(this.highlightColor || this.defaultColor); }
-    onMouseLeave() { this.highlight(null); }
+    @HostListener('mouseenter') onMouseEnter() { this.highlight(this.tohHighlight || this.defaultColor); }
+    @HostListener('mouseleave') onMouseLeave() { this.highlight(null); }
 
     private highlight(color: string) {        
         this.el.style.color = color;

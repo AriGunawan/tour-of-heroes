@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, Output, ElementRef } from '@angular/core';
 import { RouteParams } from '@angular/router-deprecated';
 import { Router } from '@angular/router-deprecated';
 
@@ -43,6 +43,34 @@ export class HeroDetailComponent implements OnInit {
             this.navigated = false;
             window.history.back();
         };
+    }
+
+    base64(file: any, callback: (result: any) => any) {
+        let result: any = {};
+        function readerOnload(e: any) {
+          let base64 = btoa(e.target.result);
+          result.base64 = base64;
+          callback(result)
+        };
+
+        let reader = new FileReader();
+        reader.onload = readerOnload;
+
+        result.filetype = file.type;
+        result.size = file.size;
+        result.filename = file.name;
+        reader.readAsBinaryString(file);
+      }
+
+    onFileChange(fileInput: any){
+        let input = fileInput.target;
+
+        if (input && input.files && input.files[0]) {
+            this.base64(input.files[0], data => {
+                let prefix = 'data:' + data.filetype + ';base64,';
+                this.hero.picture = prefix + data.base64;
+            })
+        }
     }
 
     onSubmit() {

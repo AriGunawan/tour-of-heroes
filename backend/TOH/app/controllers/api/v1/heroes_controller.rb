@@ -32,6 +32,6 @@ class Api::V1::HeroesController < ApplicationController
   private
 
   def hero_params
-    params.require(:hero).permit(:name, :alter_ego, :power_id)
+    params.require(:hero).permit(:name, :alter_ego, :power_id, :picture)
   end
 end

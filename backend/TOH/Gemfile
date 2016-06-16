@@ -51,3 +51,7 @@ gem 'rabl-rails'
 
 # Allow Cross-Origin Resource Sharing (CORS)
 gem 'rack-cors', require: 'rack/cors'
+
+# Upload picture
+gem 'carrierwave'
+gem 'carrierwave-base64'

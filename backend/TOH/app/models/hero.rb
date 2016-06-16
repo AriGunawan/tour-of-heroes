@@ -1,3 +1,3 @@
 class Hero < ActiveRecord::Base
-  belongs_to :power
+  mount_base64_uploader :picture, PictureUploader
 end
