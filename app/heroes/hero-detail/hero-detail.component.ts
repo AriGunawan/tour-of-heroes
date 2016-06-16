@@ -4,6 +4,8 @@ import { Router } from '@angular/router-deprecated';
 
 import { Hero, HeroService, POWERS } from '../shared/index';
 
+const baseUrl = "http://localhost:3002";
+
 @Component({
     selector: 'toh-hero-detail',
     templateUrl: 'app/heroes/hero-detail/hero-detail.component.html',
@@ -81,5 +83,15 @@ export class HeroDetailComponent implements OnInit {
                 this.goBack(hero);
             })
             .catch(error => this.error = error); // TODO: Display error message
+    }
+
+    generatePictureLink(picture: any) {
+        let url;
+        if (picture && picture.picture && picture.picture.url) {
+            url = picture.picture.url;
+        } else {
+            url = "/hero-default.jpg";
+        }
+        return baseUrl + url;
     }
 }

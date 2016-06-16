@@ -1,6 +1,6 @@
 export interface Hero {
     alter_ego?: string;
-    picture?: string;
+    picture?: any;
 }
 
 export class Hero {

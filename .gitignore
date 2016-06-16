@@ -18,3 +18,9 @@
 
 # bin files
 /backend/TOH/bin/*
+
+# sftp config
+/sftp-config.json
+
+# uploads file
+/backend/TOH/public/uploads/*

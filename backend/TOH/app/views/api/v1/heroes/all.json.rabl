@@ -1,5 +1,5 @@
 object false
 
 child :@heroes do
-  attributes :id, :name, :alter_ego, :power_id
+  attributes :id, :name, :alter_ego, :power_id, :picture
 end
