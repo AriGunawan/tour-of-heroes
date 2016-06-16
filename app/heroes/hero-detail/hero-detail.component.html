@@ -6,7 +6,7 @@
                 <div class="panel panel-default left-panel">
 				  	<div class="panel-body">
 				    	<div>
-				    		<img class="hero-pict" src="{{generatePictureLink(hero.picture)}}">
+				    		<img class="hero-pict" src="{{pictureLink}}">
 				    	</div>
 				  	</div>
 				</div>
@@ -45,7 +45,7 @@
                         <input type="file" id="photo" (change)="onFileChange($event)" ngControl="picture" class="input-text">
                     </div>
                     <button type="submit" class="btn btn-primary pull-right" [disabled]="!heroForm.form.valid">Save</button>
-                    <button class="btn btn-danger pull-right btn-left" (click)="goBack()">Back</button>
+                    <button type="button" class="btn btn-danger pull-right btn-left" (click)="goBack()">Back</button>
                 </form>
             </div>
         </div>
