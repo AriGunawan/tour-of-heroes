@@ -13,7 +13,7 @@
             </li>
         </ul>
         <button (click)="addHero()">Add New Hero</button>
-        <div *ngIf="selectedHero">
+        <div *tohUnless="!selectedHero">
             <h2>
             {{selectedHero.name | uppercase}} is my hero
             </h2>
@@ -21,7 +21,7 @@
         </div>
     </div>
 </div>
-<div *ngIf="addingHero">
+<div *tohUnless="!addingHero">
     <toh-hero-detail (close)="close($event)"></toh-hero-detail>
 </div>
 <toaster-container></toaster-container>

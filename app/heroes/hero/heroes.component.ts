@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router-deprecated';
 import { ToasterContainerComponent, ToasterService } from 'angular2-toaster/angular2-toaster';
 
-import { DisplayNamePipe, Hero, HeroService } from '../shared/index';
+import { DisplayNamePipe, Hero, HeroService, UnlessDirective } from '../shared/index';
 import { HeroDetailComponent } from '../hero-detail/index';
 
 @Component({
   selector: 'toh-heroes',
   templateUrl: 'app/heroes/hero/heroes.component.html',
   styleUrls: ['app/heroes/hero/heroes.component.css'],
-  directives: [HeroDetailComponent, ToasterContainerComponent],
+  directives: [HeroDetailComponent, ToasterContainerComponent, UnlessDirective],
   providers: [ToasterService],
   pipes: [DisplayNamePipe]
 })
