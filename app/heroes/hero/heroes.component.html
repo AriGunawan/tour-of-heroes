@@ -7,7 +7,7 @@
                 [class.selected]="hero === selectedHero">
                 <span class="hero-element">
                 <span class="badge">{{hero.id}}</span> 
-                <span class="text">{{hero.name}}</span>
+                <span class="text">{{hero | displayName}}</span>
                 </span>
                 <button class="delete-button" (click)="delete(hero,$event)">Delete</button>
             </li>

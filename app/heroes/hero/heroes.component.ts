@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router-deprecated';
 import { ToasterContainerComponent, ToasterService } from 'angular2-toaster/angular2-toaster';
 
-import { Hero, HeroService } from '../shared/index';
+import { DisplayNamePipe, Hero, HeroService } from '../shared/index';
 import { HeroDetailComponent } from '../hero-detail/index';
 
 @Component({
@@ -10,7 +10,8 @@ import { HeroDetailComponent } from '../hero-detail/index';
   templateUrl: 'app/heroes/hero/heroes.component.html',
   styleUrls: ['app/heroes/hero/heroes.component.css'],
   directives: [HeroDetailComponent, ToasterContainerComponent],
-  providers: [ToasterService]
+  providers: [ToasterService],
+  pipes: [DisplayNamePipe]
 })
 export class HeroesComponent implements OnInit {
   // public properties
