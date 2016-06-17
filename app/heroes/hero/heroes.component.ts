@@ -18,6 +18,8 @@ export class HeroesComponent implements OnInit {
   selectedHero: Hero;
   addingHero: boolean;
   error: any;
+  mode = 'Observable';
+  errorMessage: string;
 
   // public methods
   constructor(
@@ -30,7 +32,11 @@ export class HeroesComponent implements OnInit {
   }
 
   getHeroes() {
-    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+    this.heroService.getHeroes()
+                    .subscribe(
+                      heroes => this.heroes = heroes,
+                      error => this.errorMessage = <any>error
+                    );
   }
 
   onSelect(hero: Hero) {
@@ -45,7 +51,7 @@ export class HeroesComponent implements OnInit {
 
   gotoDetail() {
     let id = this.selectedHero.id;
-    let link = ['HeroDetail', { id: id }];
+    let link = ['HeroDetail', { id: id, caller: 'Heroes' }];
     this.router.navigate(link);
   }
 
@@ -66,14 +72,14 @@ export class HeroesComponent implements OnInit {
     event.stopPropagation();
     this.heroService
       .delete(hero)
-      .then(res => {
-        this.toasterService.pop('success', 'Success', 'Successfully deleted hero.'); 
-        this.heroes = this.heroes.filter(h => h != hero);
-        if (this.selectedHero === hero) {
-          this.selectedHero = null;
-        }
-      })
-      .catch(error => this.error = error); // TODO: Display error
+      .subscribe(
+        result => {
+          this.toasterService.pop('success', 'Success', 'Successfully deleted hero.'); 
+          this.heroes = this.heroes.filter(h => h != hero);
+          if (this.selectedHero === hero) {
+            this.selectedHero = null;
+          }},
+        error => this.errorMessage = <any>error);
   }
 
   trackByHeroes(index: number, hero: Hero) { return hero.id };

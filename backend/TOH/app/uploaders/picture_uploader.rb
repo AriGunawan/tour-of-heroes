@@ -49,7 +49,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   # end
   # 
   def filename
-    "#{model.name}.#{model.picture.file.extension}" if !model.picture.nil? && !model.picture.file.nil?
+    "hero.#{model.picture.file.extension}" if !model.picture.nil? && !model.picture.file.nil?
   end
 
 end

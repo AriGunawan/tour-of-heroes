@@ -1,10 +1,11 @@
-import { Http, Headers } from '@angular/http';
+import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
 
+import { AppConfig } from '../config/index';
 import { Hero } from './hero';
 
-const heroesBaseUrl = 'http://localhost:3002/api/v1/heroes';
+const apiBaseUrl = 'http://localhost:3002/api/v1/heroes';
 
 @Injectable()
 export class HeroService {
@@ -13,46 +14,42 @@ export class HeroService {
         private http: Http
     ){}
 
-    getHeroes(): Promise<Hero[]> {
-        let url = `${heroesBaseUrl}/all.json`;
+    getHeroes(): Observable<Hero[]> {
+        let url = `${apiBaseUrl}/all.json`;
         return this.http.get(url)
-                   .toPromise()
-                   .then(response => response.json().heroes)
+                   .map(this.extractHeroesData)
                    .catch(this.handleError);
     }
 
-    getHero(id: number) {
-        let url = `${heroesBaseUrl}/${id}.json`;
+    getHero(id: number): Observable<Hero> {
+        let url = `${apiBaseUrl}/${id}.json`;
         return this.http.get(url)
-                   .toPromise()
-                   .then(response => response.json().hero)
+                   .map(this.extractHeroData)
                    .catch(this.handleError);
     }
 
     // Get last hero
-    getLast(qty:number) {
-        let url = `${heroesBaseUrl}/last/${qty}.json`;
+    getLast(qty:number): Observable<Hero[]> {
+        let url = `${apiBaseUrl}/last/${qty}.json`;
         return this.http
                    .get(url)
-                   .toPromise()
-                   .then(response => response.json().heroes)
+                   .map(this.extractHeroesData)
                    .catch(this.handleError);
     }
 
     // Delete hero
-    delete(hero: Hero) {
+    delete(hero: Hero): Observable<any> {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        let url = `${heroesBaseUrl}/${hero.id}`;
+        let url = `${apiBaseUrl}/${hero.id}`;
 
         return this.http
                    .delete(url, headers)
-                   .toPromise()
                    .catch(this.handleError);
     }
 
-    save(hero: Hero): Promise<Hero> {
+    save(hero: Hero): Observable<Hero> {
         if (hero.id) {
             return this.put(hero);
         }
@@ -61,35 +58,50 @@ export class HeroService {
 
     // private methods
     private handleError(error: any) {
-        console.error('An error occured', error);
-        return Promise.reject(error.message || error);
+        // TODO: remote logging infrastracture
+        let errMsg = (error.message) ? error.message : 
+            ((error.status) ? `${error.status} - ${error.statusText}` : 'Server error');
+        console.error(errMsg); // log to console instead
+        return Observable.throw(errMsg);
     }
 
     // Add new hero
-    private post(hero: Hero): Promise<Hero> {
+    private post(hero: Hero): Observable<Hero> {
+        let body = JSON.stringify(hero);
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
-        
-        let url = `${heroesBaseUrl}.json`;
+        let options = new RequestOptions({ headers: headers});
+        let url = `${apiBaseUrl}.json`;
+
         return this.http
-                   .post(url, JSON.stringify(hero), {headers: headers})
-                   .toPromise()
-                   .then(response => response.json().hero)
+                   .post(url, body, options)
+                   .map(this.extractHeroData)
                    .catch(this.handleError);
     }
 
     // Update existing hero
-    private put(hero: Hero) {
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        let url = `${heroesBaseUrl}/${hero.id}.json`;
+    private put(hero: Hero): Observable<Hero> {
+        let body = JSON.stringify(hero);
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+        let options = new RequestOptions({ headers: headers});
+        let url = `${apiBaseUrl}/${hero.id}.json`;
 
         return this.http
-                   .put(url, JSON.stringify(hero), {headers: headers})
-                   .toPromise()
-                   .then(() => hero)
+                   .put(url, body, options)
+                   .map(this.extractHeroData)
                    .catch(this.handleError);
+    }
+
+    private extractHeroesData(res: Response) {
+        let body = res.json();
+        return body.heroes || {};
+    }
+
+    private extractHeroData(res: Response) {
+        let body = res.json();
+        return body.hero || {};
     }
 }

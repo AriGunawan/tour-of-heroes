@@ -21,11 +21,11 @@ export class DashboardComponent implements OnInit {
     
     ngOnInit() {
         this.heroService.getLast(this.lastQty)
-            .then(heroes => this.heroes = heroes);
+            .subscribe(heroes => this.heroes = heroes);
     }
 
     gotoDetail(hero: Hero){
-        let link = ['HeroDetail', { id: hero.id }];
+        let link = ['HeroDetail', { id: hero.id, caller: 'Dashboard' }];
         this.router.navigate(link);
     }
  }

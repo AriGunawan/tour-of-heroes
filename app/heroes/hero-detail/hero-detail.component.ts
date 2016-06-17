@@ -14,10 +14,11 @@ export class HeroDetailComponent implements OnInit {
     // public properties
     @Input() hero: Hero;
     @Output() close = new EventEmitter();
-    navigated: boolean;
     error: any;
     powers = POWERS;
     pictureLink: string;
+    errorMessage: string;
+    caller: string;
 
     // public methods
     constructor(
@@ -30,14 +31,14 @@ export class HeroDetailComponent implements OnInit {
     ngOnInit(){
         if (this.routeParams.get('id') !== null) {
             let id = +this.routeParams.get('id');
-            this.navigated = true;
+            this.caller = this.routeParams.get('caller');
             this.heroService.getHero(id)
-                .then(hero => {
+                .subscribe( hero => {
                     this.hero = hero;
                     this.generatePictureLink(hero.picture);
                 });
         } else {
-            this.navigated = false;
+            this.caller = null;
             this.hero = new Hero();
             this.generatePictureLink();
         }
@@ -45,10 +46,11 @@ export class HeroDetailComponent implements OnInit {
 
     goBack(savedHero: Hero = null) {
         this.close.emit(savedHero);
-        if (this.navigated) {
-            this.navigated = false;
-            window.history.back();
-        };
+        if (this.caller) {
+            this.router.navigate([this.caller]);
+        } else {
+            this.router.navigate(['Heroes']);
+        }
     }
 
     base64(file: any, callback: (result: any) => any) {
@@ -89,11 +91,10 @@ export class HeroDetailComponent implements OnInit {
     onSubmit() {
         this.heroService
             .save(this.hero)
-            .then(hero => {
-                this.hero = new Hero(); // saved hero, w/ id if new
-                this.goBack(hero);
-            })
-            .catch(error => this.error = error); // TODO: Display error message
+            .subscribe(                
+                hero => {
+                    this.goBack(hero);},
+                error => this.errorMessage = <any>error);
     }
 
     generatePictureLink(picture?: any) {
@@ -104,5 +105,9 @@ export class HeroDetailComponent implements OnInit {
             url = AppConfig.DEFAULT_HERO_PICTURE;
         }
         this.pictureLink = AppConfig.API_BASE_URL + url;
+    }
+
+    isShowBackButton() {
+        return this.caller || !this.routeParams.get('id');
     }
 }
