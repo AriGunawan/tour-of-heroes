@@ -25,10 +25,11 @@ $ npm start
 ```
 Open another terminal and run this command in the root folder
 ```sh
+$ cd backend\TOH
 $ rails s -p 3002
 ```
 
-### Linter
+### Typescript Linter
 Open terminal and run this command in the root folder
 ```sh
 $ npm run tslint:all
