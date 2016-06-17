@@ -1,5 +1,5 @@
 # tour-of-heroes
-Simple CRUD web application using Angular 2 for front end and Ruby on Rails for the backend.
+Simple CRUD web application using Angular 2 for frontend and Ruby on Rails for the backend.
 
 ### Tech
 This application uses a number of technologies:
